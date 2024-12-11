@@ -1,9 +1,4 @@
-# fly.toml app configuration file generated for blog-app-misty-sky-7448 on 2024-12-10T17:07:23+02:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = "blog-app-misty-sky-7448"
+app = "part11-blog-app"
 primary_region = "arn"
 
 [build]
