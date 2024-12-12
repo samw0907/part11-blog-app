@@ -61,13 +61,14 @@ jobs:
             - to (https://part11-blog-app.fly.dev/) by: ${{ github.actor }}
             - Severity: :green_circle: Informational
 
-      - name: Notify Failure to Discord
-        if: failure()
-        uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        with:
-          args: |
-            **Build failed**
-            - commit (https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }} broke the build :(
-            - Severity: :red_circle: Error
+   #   - name: Notify Failure to Discord
+   #     if: failure()
+   #     uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
+    #    env:
+   #       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+   #     with:
+    #      args: |
+    #        **Build failed**
+    #        - commit (https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }} broke the build :(
+   #        - Severity: :red_circle: Error
+   
