@@ -1,5 +1,6 @@
-module.exports = {
-  root: true,
+import { defineConfig } from 'eslint-define-config'
+
+export default defineConfig({
   env: {
     browser: true,
     node: true,
@@ -45,6 +46,5 @@ module.exports = {
   ignorePatterns: [
     'node_modules/',
     'build/',
-    '.eslintrc.cjs', // Ignore any old ESLint config file
   ],
-};
+})
