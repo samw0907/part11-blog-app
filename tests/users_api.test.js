@@ -103,7 +103,7 @@ describe('when there is initially one user in db', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-  // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log('Error message:', result.body.error)
 
     const usersAtEnd = await helper.usersInDb()
@@ -126,7 +126,7 @@ describe('when there is initially one user in db', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-  // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log('Error message:', result.body.error)
 
     const usersAtEnd = await helper.usersInDb()
