@@ -8,6 +8,7 @@ primary_region = "arn"
   PORT = "3003"
   MONGODB_URI = "mongodb+srv://samw0907:EadDuryan1706%21@atlascluster.fjk6ysb.mongodb.net/bloglistApp?retryWrites=true&w=majority"
   NODE_ENV = "production"
+  VITE_API_URL = "https://part11-blog-app.fly.dev"  # Set production API URL
 
 [http_service]
   internal_port = 3003
