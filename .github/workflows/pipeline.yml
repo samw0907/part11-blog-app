@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Check style
-        run: npm run lint -- --fix
+        run: npm run eslint -- --fix
 
       - name: Run Jest tests
         run: npm test
