@@ -24,14 +24,17 @@ jobs:
       - name: Install backend dependencies
         run: npm install
 
+      - name: Install ESLint globally
+        run: npm install -g eslint
+        
       - name: Lint backend code
-        run: eslint . --fix
+        run: npx eslint . --fix
 
       - name: Build frontend
         run: |
           cd bloglist-frontend
           npm install
-          eslint . --fix
+          npx eslint . --fix
           npm run build
 
       - name: Copy dist to backend build directory
