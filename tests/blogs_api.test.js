@@ -68,6 +68,7 @@ beforeEach(async () => {
 
   token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' })
 
+// eslint-disable-next-line no-unused-vars
   const blogObjects = initialBlogs.map(blog => new Blog({ ...blog, user: user._id }))
   const promiseArray = blogObjects.map(blog => blog.save())
   await Promise.all(promiseArray)
@@ -84,6 +85,7 @@ test('blogs are returned as json', async () => {
 test('there are five blogs', async () => {
   const response = await api.get('/api/blogs').set('Authorization', `Bearer ${token}`)
 
+// eslint-disable-next-line no-unused-vars
   assert.strictEqual(response.body.length, initialBlogs.length)
 })
 
