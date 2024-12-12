@@ -1,5 +1,6 @@
-const { test, after, describe, beforeEach } = require('node:test')
+const { test, describe, beforeEach } = require('node:test')
 const bcrypt = require('bcrypt')
+// eslint-disable-next-line no-unused-vars
 const mongoose = require('mongoose')
 const assert = require('node:assert')
 const supertest = require('supertest')
@@ -67,26 +68,26 @@ describe('when there is initially one user in db', () => {
   })
 
   test('creation fails if username already taken',
-async () => {
-    const usersAtStart = await helper.usersInDb()
+    async () => {
+      const usersAtStart = await helper.usersInDb()
 
-    const newUser = {
-      username: 'root',
-      name: 'Superuser',
-      password: 'salainen',
-    }
+      const newUser = {
+        username: 'root',
+        name: 'Superuser',
+        password: 'salainen',
+      }
 
-    const result = await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(400)
-      .expect('Content-Type', /application\/json/)
+      const result = await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(400)
+        .expect('Content-Type', /application\/json/)
 
-    const usersAtEnd = await helper.usersInDb()
-    assert(result.body.error.includes('`username` already in use'))
+      const usersAtEnd = await helper.usersInDb()
+      assert(result.body.error.includes('`username` already in use'))
 
-    assert.strictEqual(usersAtEnd.length, usersAtStart.length)
-  })
+      assert.strictEqual(usersAtEnd.length, usersAtStart.length)
+    })
 
   test('creation fails if username is less than 3 characters', async () => {
     const usersAtStart = await helper.usersInDb()
@@ -102,7 +103,7 @@ async () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-
+    // eslint-disable-next-line no-console
     console.log('Error message:', result.body.error)
 
     const usersAtEnd = await helper.usersInDb()
@@ -125,7 +126,7 @@ async () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-
+    // eslint-disable-next-line no-console
     console.log('Error message:', result.body.error)
 
     const usersAtEnd = await helper.usersInDb()

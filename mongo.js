@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 if (process.argv.length < 3) {
+  // eslint-disable-next-line no-console
   console.log('Usage: node mongo.js <password> [<title> <author> <url> <likes>]')
   process.exit(1)
 }
@@ -25,6 +26,7 @@ if (process.argv.length === 3) {
 
   Blog.find({}).then(result => {
     result.forEach(blog => {
+      // eslint-disable-next-line no-console
       console.log(`${blog.title} by ${blog.author}, ${blog.url}, ${blog.likes}`)
     })
     mongoose.connection.close()
@@ -44,10 +46,12 @@ if (process.argv.length === 3) {
   })
 
   blog.save().then(() => {
+    // eslint-disable-next-line no-console
     console.log(`Added blog: ${title} by ${author}`)
     mongoose.connection.close()
   })
 } else {
+  // eslint-disable-next-line no-console
   console.log('Usage: node mongo.js <password> [<title> <author> <url> <likes>]')
   mongoose.connection.close()
 }

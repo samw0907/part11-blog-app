@@ -1,6 +1,8 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+// eslint-disable-next-line no-unused-vars
 const User = require('../models/user')
+// eslint-disable-next-line no-unused-vars
 const jwt = require('jsonwebtoken')
 const { tokenExtractor } = require('../utils/middleware')
 const { userExtractor } = require('../utils/middleware')
@@ -11,7 +13,7 @@ blogsRouter.use(userExtractor)
 blogsRouter.get('/', async (request, response) => {
   try {
     const blogs = await Blog
-    .find({}).populate('user', {username: 1, name: 1})
+      .find({}).populate('user', { username: 1, name: 1 })
     response.json(blogs)
   } catch (error) {
     response.status(500).json({ error: 'something went wrong' })
@@ -46,7 +48,7 @@ blogsRouter.post('/', tokenExtractor, userExtractor, async (request, response, n
     url: body.url,
     likes: body.likes || 0,
     user: user.id
-  });
+  })
 
   try {
     const savedBlog = await blog.save()
@@ -61,7 +63,7 @@ blogsRouter.post('/', tokenExtractor, userExtractor, async (request, response, n
 blogsRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response, next) => {
   try {
     const blog = await Blog.findById(request.params.id)
- 
+
     if (blog.user.toString() !== request.user.id.toString()) {
       return response.status(403).json({ error: 'only the creator can delete the blog' })
     }
