@@ -18,6 +18,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
 
+  const apiUrl = process.env.VITE_API_URL || 'https://part11-blog-app.fly.dev'
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -86,7 +87,6 @@ const App = () => {
     }
   }
 
-
   const blogFormRef = useRef()
 
   const blogForm = () => {
@@ -139,7 +139,7 @@ const App = () => {
       setTimeout(() => setErrorMessage(null), 5000)
     }
   }
-  
+
   return (
     <div>
       <h1>Blog App</h1>
