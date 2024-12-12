@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "build": "rm -rf build && cd ../bloglist-frontend && npm run build && cp -r dist ../blog-app/build",
+    "build": "rm -rf build && cd bloglist-frontend && npm run build && cp -r dist/* ../build/",
     "deploy": "flyctl deploy",
     "deploy:full": "npm run build && npm run deploy",
     "logs:prod": "flyctl logs",
