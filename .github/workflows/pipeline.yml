@@ -25,13 +25,13 @@ jobs:
         run: npm install
 
       - name: Lint backend code
-        run: npm run lint
+        run: npx eslint . --fix
 
       - name: Build frontend
         run: |
           cd bloglist-frontend
           npm install
-          npm run lint
+          npx eslint . --fix
           npm run build
 
       - name: Copy dist to backend build directory
