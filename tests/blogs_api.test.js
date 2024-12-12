@@ -104,9 +104,9 @@ test('unique identifier property of the blog posts is named id', async () => {
 
 test('a valid blog can be added', async () => {
   const newBlog = {
-    title: "Test Blog",
-    author: "Test Author",
-    url: "http://testurl.com",
+    title: 'Test Blog',
+    author: 'Test Author',
+    url: 'http://testurl.com',
     likes: 10
   }
 
@@ -138,13 +138,13 @@ test('missing likes property defaults to 0', async () => {
     .expect(201)
     .expect('Content-Type', /application\/json/)
 
-    const blogsAtEnd = await helper.blogsInDb()
-    const createdBlog = blogsAtEnd.find(blog => blog.title === newBlog.title)
-  
-    assert.strictEqual(createdBlog.likes, 0)
-    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
-  })
-  
+  const blogsAtEnd = await helper.blogsInDb()
+  const createdBlog = blogsAtEnd.find(blog => blog.title === newBlog.title)
+
+  assert.strictEqual(createdBlog.likes, 0)
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+})
+
 
 test('blogs without title should return 400 Bad Request', async () => {
   const newBlog = {
@@ -184,11 +184,11 @@ test('a specific blog can be viewed', async () => {
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
-    assert.deepStrictEqual(resultBlog.body.title, blogToView.title)
-    assert.deepStrictEqual(resultBlog.body.author, blogToView.author)
-    assert.deepStrictEqual(resultBlog.body.url, blogToView.url)
-    assert.deepStrictEqual(resultBlog.body.likes, blogToView.likes)
-    assert.deepStrictEqual(resultBlog.body.user.toString(), blogToView.user.toString()) 
+  assert.deepStrictEqual(resultBlog.body.title, blogToView.title)
+  assert.deepStrictEqual(resultBlog.body.author, blogToView.author)
+  assert.deepStrictEqual(resultBlog.body.url, blogToView.url)
+  assert.deepStrictEqual(resultBlog.body.likes, blogToView.likes)
+  assert.deepStrictEqual(resultBlog.body.user.toString(), blogToView.user.toString())
 })
 
 test('a blog can be deleted', async () => {

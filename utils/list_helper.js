@@ -7,7 +7,7 @@ const totalLikes = (blogs) => {
 }
 
 const favoriteBlog = (blogs) => {
- return blogs.reduce((mostLiked, blog) => {
+  return blogs.reduce((mostLiked, blog) => {
     return (mostLiked.likes || 0) > blog.likes ? mostLiked : blog
   }, {})
 }
@@ -47,7 +47,7 @@ const mostLikes = (blogs) => {
 
   const topAuthor = Object.keys(likesCount).reduce((top, author) => {
     return likesCount[author] > (likesCount[top] || 0) ? author : top
-  }, "")
+  }, '')
 
   return {
     author: topAuthor,
