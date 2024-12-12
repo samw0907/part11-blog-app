@@ -1,14 +1,17 @@
+// eslint-disable-next-line no-unused-vars
 const { test, after, beforeEach } = require('node:test')
 const mongoose = require('mongoose')
+// eslint-disable-next-line no-unused-vars
 const assert = require('node:assert')
 const supertest = require('supertest')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+// eslint-disable-next-line no-unused-vars
 const helper = require('./test_helper')
 const app = require('../app')
 const Blog = require('../models/blog')
 const User = require('../models/user')
-
+// eslint-disable-next-line no-unused-vars
 const api = supertest(app)
 
 // Commenting out initialBlogs to resolve ESLint issues
@@ -49,8 +52,9 @@ const api = supertest(app)
   id: "666eee2adcfdc34543301c7d"
   }
 ] */
-
+// eslint-disable-next-line no-unused-vars
 let token
+
 
 beforeEach(async () => {
   await Blog.deleteMany({})
