@@ -1,25 +1,22 @@
 name: Periodic Health Check
 
 on:
-  workflow_dispatch:  # This allows the workflow to be manually triggered if needed.
-  # Uncomment below to schedule periodic health checks:
   # schedule:
-  #   - cron: '0 0 * * *'  # Example: check every day at midnight.
+  #   - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   health_check:
     runs-on: ubuntu-20.04
 
     steps:
-      # Step 1: Check the deployed service URL
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v4
         with:
-          url: https://part11-blog-app.fly.dev/  # Replace with your Fly.io app URL
-          max-attempts: 3  # Number of attempts before failure
-          retry-delay: 5s  # Delay between attempts
+          url: https://part11-blog-app.fly.dev/
+          max-attempts: 3
+          retry-delay: 5s
 
-      # Step 2: Notify Success to Discord if the app is healthy
       - name: Notify Success to Discord
         if: ${{ success() }}
         uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
@@ -31,7 +28,6 @@ jobs:
             - Application is running as expected at (https://part11-blog-app.fly.dev/)
             - **Severity:** :green_circle: Informational
 
-      # Step 3: Notify Failure to Discord if the app fails health check
       - name: Notify Failure to Discord
         if: ${{ failure() }}
         uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
@@ -42,4 +38,3 @@ jobs:
             **Periodic Health Check Failed**
             - The application at (https://part11-blog-app.fly.dev/) is not responding or returned an error.
             - **Severity:** :red_circle: Error
-            
