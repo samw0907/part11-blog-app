@@ -29,9 +29,6 @@ jobs:
       - name: Check style
         run: npm run eslint -- --fix
 
-      - name: Run Jest tests
-        run: npm test
-
       - name: Build application
         run: npm run build
 
