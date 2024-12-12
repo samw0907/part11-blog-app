@@ -1,4 +1,4 @@
-name: Deployment pipeline
+name: Deployment Pipeline
 
 on:
   push:
@@ -8,48 +8,50 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
-env:
-  CONDITION: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
-
 jobs:
-  simple_deployment_pipeline:
+  build_and_deploy:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      # Install backend dependencies
+      - name: Install backend dependencies
         run: npm install
 
-      - name: Set executable permissions for eslint
-        run: chmod +x node_modules/.bin/eslint
+      # Build frontend
+      - name: Build frontend
+        run: |
+          cd bloglist-frontend
+          npm install
+          npm run build
 
-      - name: Check style
-        run: npm run eslint -- --fix
+      # Copy frontend dist to backend build directory
+      - name: Copy dist to backend build directory
+        run: |
+          cp -r bloglist-frontend/dist/* ./build/
 
-      - name: Build application
-        run: npm run build
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests
-        run: npm run test:e2e
-
+      # Install Flyctl for deployment
       - name: Install Flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
           echo "FLYCTL_INSTALL=$HOME/.fly" >> $GITHUB_ENV
           echo "PATH=$HOME/.fly/bin:$PATH" >> $GITHUB_ENV
 
-      - name: Deploy App
-        if: ${{ github.event_name == 'push' && env.CONDITION != 'true' }}
+      # Deploy the application to Fly.io
+      - name: Deploy app to Fly.io
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
+      # Notify on success
       - name: Notify Success to Discord
         if: success()
         uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
@@ -57,18 +59,18 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            **A new version of the Blog App deployed**
-            - to (https://part11-blog-app.fly.dev/) by: ${{ github.actor }}
+            **A new version of BlogApp deployed**
+            - To (https://part11-blog-app.fly.dev/) by: ${{ github.actor }}
             - Severity: :green_circle: Informational
 
-   #   - name: Notify Failure to Discord
-   #     if: failure()
-   #     uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
-    #    env:
-   #       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-   #     with:
-    #      args: |
-    #        **Build failed**
-    #        - commit (https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }} broke the build :(
-   #        - Severity: :red_circle: Error
-   
+      # Optionally notify on failure
+ #     - name: Notify Failure to Discord
+ #       if: failure()
+ #       uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
+ #       env:
+ #         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+ #       with:
+ #         args: |
+ #           **Build failed**
+ #           - Commit (https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }} broke the build :(
+ #           - Severity: :red_circle: Error

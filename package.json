@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "build": "run: rm -rf build && cd bloglist-frontend && ./node_modules/.bin/vite build && cp -r dist/* ../build/",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "deploy:full": "npm run build && npm run deploy",
     "logs:prod": "flyctl logs",
     "eslint": "eslint . --fix",
@@ -15,7 +14,6 @@
   },
   "author": "Sam Williamson",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -44,4 +42,3 @@
     "supertest": "^7.0.0"
   }
 }
-
