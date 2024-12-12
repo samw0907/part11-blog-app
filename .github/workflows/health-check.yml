@@ -42,3 +42,4 @@ jobs:
             **Periodic Health Check Failed**
             - The application at (https://part11-blog-app.fly.dev/) is not responding or returned an error.
             - **Severity:** :red_circle: Error
+            
