@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "build": "rmdir /s /q build && cd bloglist-frontend && ./node_modules/.bin/vite build && xcopy /e /i dist\\* ..\\build\\",
+    "build": "run: rm -rf build && cd bloglist-frontend && ./node_modules/.bin/vite build && cp -r dist/* ../build/",
     "deploy:full": "npm run build && npm run deploy",
     "logs:prod": "flyctl logs",
     "eslint": "eslint . --fix",
@@ -44,3 +44,4 @@
     "supertest": "^7.0.0"
   }
 }
+
