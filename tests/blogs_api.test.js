@@ -8,7 +8,7 @@ const helper = require('./test_helper')
 const app = require('../app')
 const Blog = require('../models/blog')
 const User = require('../models/user')
-
+const helper = require('./test_helper')
 const api = supertest(app)
 
 /*

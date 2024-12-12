@@ -1,3 +1,4 @@
+  // eslint-disable-next-line no-console
 console.log('Starting tests in testing.js')
 const { test, describe } = require('node:test')
 const assert = require('node:assert')
@@ -32,18 +33,23 @@ const listWithMultipleBlogs = [
 
 test('dummy returns one', () => {
   const blogs = []
+    // eslint-disable-next-line no-console
   console.log('Running dummy test')
 
   const result = listHelper.dummy(blogs)
+    // eslint-disable-next-line no-console
   console.log('Dummy function returned:', result)
   assert.strictEqual(result, 1)
 })
 
 describe('total likes', () => {
+    // eslint-disable-next-line no-console
   console.log('Running total likes tests')
 
   test('when list has multiple blogs, equals the sum of likes', () => {
+      // eslint-disable-next-line no-console
     console.log('Running total likes test')
+      // eslint-disable-next-line no-console
     const result = listHelper.totalLikes(listWithMultipleBlogs)
     console.log('Total likes for listWithMultipleBlogs:', result)
     assert.strictEqual(result, 26)
@@ -53,6 +59,7 @@ describe('total likes', () => {
 describe('blog with most likes', () => {
   test('returns the blog with the most likes', () => {
     const result = listHelper.favoriteBlog(listWithMultipleBlogs)
+      // eslint-disable-next-line no-console
     console.log('Blog with most likes:', result)
     assert.deepStrictEqual(result, listWithMultipleBlogs[0])
   })
@@ -61,6 +68,7 @@ describe('blog with most likes', () => {
 describe('most blogs by an author', () => {
   test('returns the author with the most blogs', () => {
     const result = listHelper.mostBlogs(listWithMultipleBlogs)
+      // eslint-disable-next-line no-console
     console.log('Author with most blogs:', result)
     assert.deepStrictEqual(result, { author: 'Dwight Shrute', blogs: 2 })
   })
@@ -69,6 +77,7 @@ describe('most blogs by an author', () => {
 describe('author with the most likes', () => {
   test('returns the author with the most likes', () => {
     const result = listHelper.mostLikes(listWithMultipleBlogs)
+      // eslint-disable-next-line no-console
     console.log('Author with most likes:', result)
     assert.deepStrictEqual(result, { author: 'Dwight Shrute', likes: 25 })
   })

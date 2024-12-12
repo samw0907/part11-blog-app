@@ -1,6 +1,8 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+// eslint-disable-next-line no-unused-vars
 const User = require('../models/user')
+// eslint-disable-next-line no-unused-vars
 const jwt = require('jsonwebtoken')
 const { tokenExtractor } = require('../utils/middleware')
 const { userExtractor } = require('../utils/middleware')

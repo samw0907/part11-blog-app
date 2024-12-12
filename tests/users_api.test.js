@@ -1,5 +1,6 @@
-const { test, after, describe, beforeEach } = require('node:test')
+const { test, describe, beforeEach } = require('node:test')
 const bcrypt = require('bcrypt')
+// eslint-disable-next-line no-unused-vars
 const mongoose = require('mongoose')
 const assert = require('node:assert')
 const supertest = require('supertest')
@@ -102,7 +103,7 @@ describe('when there is initially one user in db', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-
+  // eslint-disable-next-line no-console
     console.log('Error message:', result.body.error)
 
     const usersAtEnd = await helper.usersInDb()
@@ -125,7 +126,7 @@ describe('when there is initially one user in db', () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-
+  // eslint-disable-next-line no-console
     console.log('Error message:', result.body.error)
 
     const usersAtEnd = await helper.usersInDb()
