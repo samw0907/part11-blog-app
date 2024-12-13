@@ -8,7 +8,10 @@ module.exports = {
       process: 'readonly',
     },
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: {
+    react: require('eslint-plugin-react'),
+    'react-hooks': require('eslint-plugin-react-hooks'),
+  },
   overrides: [
     {
       files: ['*.js', '*.jsx'],

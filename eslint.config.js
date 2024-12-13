@@ -1,6 +1,6 @@
 module.exports = {
   languageOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: '2020',
     sourceType: 'module',
     globals: {
       module: 'readonly',
@@ -8,7 +8,10 @@ module.exports = {
       process: 'readonly',
     },
   },
-  plugins: ['react', 'jest'],
+  plugins: {
+    react: require('eslint-plugin-react'),
+    jest: require('eslint-plugin-jest'),
+  },
   overrides: [
     {
       files: ['*.js', '*.jsx'],
