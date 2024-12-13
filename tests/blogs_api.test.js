@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 const assert = require('node:assert')
 const supertest = require('supertest')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const helper = require('./test_helper')
