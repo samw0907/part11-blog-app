@@ -32,6 +32,6 @@ module.exports = [
         version: 'detect',
       },
     },
-    ignorePatterns: ['node_modules/', 'build/'],
+    ignores: ['node_modules/', 'build/'],
   },
 ];
