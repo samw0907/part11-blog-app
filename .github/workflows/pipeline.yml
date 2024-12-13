@@ -26,9 +26,12 @@ jobs:
 
       - name: Install ESLint globally
         run: npm install -g eslint
-        
+
       - name: Lint backend code
         run: npx eslint . --fix
+
+      - name: Run Jest tests
+        run: npm test
 
       - name: Build frontend
         run: |
