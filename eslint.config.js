@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   languageOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -31,4 +31,8 @@ export default {
       version: 'detect',
     },
   },
+  ignorePatterns: [
+    'node_modules/',
+    'build/',
+  ],
 }
