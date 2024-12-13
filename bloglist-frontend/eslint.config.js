@@ -1,6 +1,6 @@
-const { defineConfig } = require('eslint-define-config');
 
-module.exports = defineConfig({
+
+module.exports = {
   env: {
     browser: true,
     node: true,
@@ -37,4 +37,4 @@ module.exports = defineConfig({
     "react/prop-types": 0,
     "no-unused-vars": 0    
   },
-});
+};

@@ -1,6 +1,6 @@
-const { defineConfig } = require('eslint-define-config');
 
-module.exports = defineConfig({
+
+module.exports = {
   env: {
     browser: true,
     node: true,
@@ -47,4 +47,4 @@ module.exports = defineConfig({
     'node_modules/',
     'build/',
   ],
-});
+};
