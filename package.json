@@ -30,7 +30,7 @@
     "@flydotio/dockerfile": "^0.5.7",
     "@stylistic/eslint-plugin-js": "^2.1.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.1",
+    "eslint": "^9.16.0",
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.1.0",

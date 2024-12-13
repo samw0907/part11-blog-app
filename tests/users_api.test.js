@@ -1,6 +1,6 @@
 const { test, describe, beforeEach } = require('node:test')
 const bcrypt = require('bcrypt')
-// eslint-disable-next-line no-unused-vars
+
 const mongoose = require('mongoose')
 const assert = require('node:assert')
 const supertest = require('supertest')

@@ -30,6 +30,9 @@ module.exports = [
         version: 'detect',
       },
     },
-    ignores: ['node_modules/', 'build/'],
+    ignores: [
+      'node_modules/',
+      'build/',
+      'dist/'],
   },
-];
+]
