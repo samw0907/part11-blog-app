@@ -1,10 +1,16 @@
 const { defineConfig } = require('eslint-define-config');
 
-export default defineConfig({
+module.exports = defineConfig({
   env: {
     browser: true,
+    node: true,
     es2020: true,
     'vitest-globals/env': true,
+  },
+  globals: {
+    module: 'readonly',
+    require: 'readonly',
+    process: 'readonly',
   },
   extends: [
     'eslint:recommended',
@@ -31,4 +37,4 @@ export default defineConfig({
     "react/prop-types": 0,
     "no-unused-vars": 0    
   },
-})
+});
