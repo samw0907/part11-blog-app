@@ -10,28 +10,6 @@ const User = require('../models/user')
 
 const api = supertest(app)
 
-const initialUsers = [
-  {
-    username: 'mscott',
-    name: 'Michael Scott',
-    password: 'dundermiflin',
-  },
-  {
-    username: 'dshrute',
-    name: 'Dwight Shrute',
-    password: 'battlestargalactica',
-  },
-  {
-    username: 'jhalpert',
-    name: 'Jim Halpert',
-    password: 'mustkilldwight',
-  },
-  {
-    username: 'pbeasley',
-    name: 'Pam Beasley',
-    password: 'password',
-  },
-]
 
 describe('when there is initially one user in db', () => {
   beforeEach(async () => {

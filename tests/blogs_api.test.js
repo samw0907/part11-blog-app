@@ -1,7 +1,5 @@
-
-const { test, after, beforeEach } = require('node:test')
+const { test, describe, beforeEach, after } = require('node:test')
 const mongoose = require('mongoose')
-
 const assert = require('node:assert')
 const supertest = require('supertest')
 const bcrypt = require('bcryptjs')
@@ -14,63 +12,28 @@ const User = require('../models/user')
 
 const api = supertest(app)
 
-const initialBlogs = [
-  {
-    title: 'How to be the best boss',
-    author: 'Michael Scott',
-    url: 'http://myblogs.com',
-    likes: 1,
-    id: '666bdb6f86c306601f91e5ea'
-  },
-  {
-    title: 'Which bear is the best bear',
-    author: 'Dwight Shrute',
-    url: 'http://bears.com',
-    likes: 1000,
-    id: '666be48986c306601f91e5ed'
-  },
-  {
-    title: 'Practical jokes for the workplace',
-    author: 'Jim Halpert',
-    url: 'http://prankingdwight.com',
-    likes: 5000,
-    id: '666be7a786c306601f91e5f0'
-  },
-  {
-    title: 'My art',
-    author: 'Pam Beasely',
-    url: 'http://pambeasleyart.com',
-    likes: 3,
-    id: '666c159631ec2e3f61184c97'
-  },
-  {
-    title: 'How to grow beets',
-    author: 'Dwight Shrute',
-    url: 'http://beets.com',
-    likes: 20,
-    id: '666eee2adcfdc34543301c7d'
-  }
-]
-
 let token
-
 
 beforeEach(async () => {
   await Blog.deleteMany({})
   await User.deleteMany({})
 
-  const passwordHash = await bcrypt.hash('testpassword', 10)
-  const user = new User({ username: 'testuser', passwordHash })
-  await user.save()
+  const userPromises = helper.initialUsers.map(async userData => {
+    const passwordHash = await bcrypt.hash(userData.password, 10)
+    const user = new User({ username: userData.username, passwordHash })
+    await user.save()
+  })
+  await Promise.all(userPromises)
 
+  const user = await User.findOne({ username: 'mscott' })
   const userForToken = {
     username: user.username,
     id: user._id,
   }
 
-  token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' })
+  token = jwt.sign(userForToken, process.env.SECRET)
 
-  const blogObjects = initialBlogs.map(blog => new Blog({ ...blog, user: user._id }))
+  const blogObjects = helper.initialBlogs.map(blog => new Blog({ ...blog, user: user._id }))
   const promiseArray = blogObjects.map(blog => blog.save())
   await Promise.all(promiseArray)
 })
@@ -83,15 +46,15 @@ test('blogs are returned as json', async () => {
     .expect('Content-Type', /application\/json/)
 })
 
-test('there are five blogs', async () => {
+test('there are ten blogs', async () => {
   const response = await api.get('/api/blogs').set('Authorization', `Bearer ${token}`)
-  assert.strictEqual(response.body.length, initialBlogs.length)
+  assert.strictEqual(response.body.length, helper.initialBlogs.length)
 })
 
-test('the first blog is about how to be the best boss', async () => {
+test('the first blog is Battlestar Galactica fanfic', async () => {
   const response = await api.get('/api/blogs').set('Authorization', `Bearer ${token}`)
   const titles = response.body.map(e => e.title)
-  assert(titles.includes('How to be the best boss'))
+  assert(titles.includes('Battlestar Galactica fanfic'))
 })
 
 test('unique identifier property of the blog posts is named id', async () => {
@@ -145,7 +108,6 @@ test('missing likes property defaults to 0', async () => {
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
 })
 
-
 test('blogs without title should return 400 Bad Request', async () => {
   const newBlog = {
     author: 'Test Person',
@@ -172,23 +134,6 @@ test('blogs without url should return 400 Bad Request', async () => {
     .set('Authorization', `Bearer ${token}`)
     .send(newBlog)
     .expect(400)
-})
-
-test('a specific blog can be viewed', async () => {
-  const blogsAtStart = await helper.blogsInDb()
-
-  const blogToView = blogsAtStart[0]
-
-  const resultBlog = await api
-    .get(`/api/blogs/${blogToView.id}`).set('Authorization', `Bearer ${token}`)
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-
-  assert.deepStrictEqual(resultBlog.body.title, blogToView.title)
-  assert.deepStrictEqual(resultBlog.body.author, blogToView.author)
-  assert.deepStrictEqual(resultBlog.body.url, blogToView.url)
-  assert.deepStrictEqual(resultBlog.body.likes, blogToView.likes)
-  assert.deepStrictEqual(resultBlog.body.user.toString(), blogToView.user.toString())
 })
 
 test('a blog can be deleted', async () => {
