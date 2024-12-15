@@ -1,4 +1,3 @@
-const { test, describe, beforeEach, after } = require('node:test')
 const mongoose = require('mongoose')
 const assert = require('node:assert')
 const supertest = require('supertest')
@@ -187,6 +186,6 @@ test('adding a blog fails if token is not provided', async () => {
     .expect(401)
 })
 
-after(async () => {
+afterAll(async () => {
   await mongoose.connection.close()
 })

@@ -34,7 +34,7 @@ jobs:
         run: npx eslint . --fix
 
       - name: Run Jest tests
-        run: npx jest --runInBand
+        run: npm test
 
       - name: Build frontend
         run: |

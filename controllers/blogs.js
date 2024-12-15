@@ -37,7 +37,7 @@ blogsRouter.get('/:id', async (request, response, next) => {
   }
 })
 
-blogsRouter.post('/', tokenExtractor, userExtractor, async (request, response, next) => {
+blogsRouter.post('/', userExtractor, async (request, response, next) => {
   const body = request.body
 
   // eslint-disable-next-line no-console
@@ -69,7 +69,7 @@ blogsRouter.post('/', tokenExtractor, userExtractor, async (request, response, n
   }
 })
 
-blogsRouter.delete('/:id', tokenExtractor, userExtractor, async (request, response, next) => {
+blogsRouter.delete('/:id', userExtractor, async (request, response, next) => {
   try {
     const blog = await Blog.findById(request.params.id)
 
