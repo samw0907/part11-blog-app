@@ -24,8 +24,8 @@ jobs:
       - name: Install backend dependencies
         run: npm install
 
-      - name: Fix permissions for cross-env
-        run: chmod +x node_modules/.bin/cross-env
+      - name: Ensure Jest Executable Permissions
+        run: chmod +x ./node_modules/.bin/jest
 
       - name: Install ESLint globally
         run: npm install -g eslint
