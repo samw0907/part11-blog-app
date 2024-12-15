@@ -24,15 +24,15 @@ jobs:
       - name: Install backend dependencies
         run: npm install
 
-      - name: Ensure Jest Executable Permissions
-        run: chmod +x ./node_modules/.bin/jest
-
       - name: Install ESLint globally
         run: npm install -g eslint
 
       - name: Lint backend code
         run: npx eslint . --fix
 
+      - name: Fix permissions for Jest
+        run: chmod +x node_modules/.bin/jest
+        
       - name: Run Jest tests
         run: npm test
 
