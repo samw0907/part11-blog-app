@@ -9,7 +9,7 @@
     "logs:prod": "flyctl logs",
     "eslint": "eslint . --fix",
     "lint": "eslint . --fix",
-    "test": "jest --ci --runInBand",
+    "test": "jest --runInBand",
     "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "Sam Williamson",
