@@ -34,7 +34,7 @@ jobs:
         run: npx eslint . --fix
 
       - name: Run Jest tests
-        run: npm test -- --forceExit
+        run: npm test
 
       - name: Build frontend
         run: |
