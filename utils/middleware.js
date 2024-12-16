@@ -15,29 +15,34 @@ const tokenExtractor = (request, response, next) => {
   if (authorization && authorization.startsWith('Bearer ')) {
     request.token = authorization.replace('Bearer ', '')
   } else {
-    request.token = null
+    return response.status(401).json({ error: 'token missing or malformed' })
   }
   next()
 }
 
 const userExtractor = async (request, response, next) => {
-  try {
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: 'token invalid or missing' })
-    }
+  response.setHeader('Content-Type', 'application/json')
 
-    const user = await User.findById(decodedToken.id)
-    if (!user) {
-      return response.status(401).json({ error: 'user not found' })
+  if (request.method === 'POST' || request.method === 'DELETE') {
+    try {
+      const decodedToken = jwt.verify(request.token, process.env.SECRET)
+      if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token invalid' })
+      }
+      const user = await User.findById(decodedToken.id)
+      if (!user) {
+        return response.status(401).json({ error: 'user not found' })
+      }
+      request.user = user
+      next()
+    } catch (error) {
+      next(error)
     }
-
-    request.user = user
+  } else {
     next()
-  } catch (error) {
-    next(error)
   }
 }
+
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
