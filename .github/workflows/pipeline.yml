@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Clean workspace
+        run: git clean -fdx
+
       - name: Install backend dependencies
         run: npm install
 
@@ -32,7 +35,7 @@ jobs:
 
       - name: Fix permissions for Jest
         run: chmod +x node_modules/.bin/jest
-        
+
       - name: Run Jest tests
         run: npm test
 
