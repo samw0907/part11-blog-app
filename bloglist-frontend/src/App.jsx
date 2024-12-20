@@ -18,7 +18,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
 
-  const apiUrl = process.env.VITE_API_URL || 'https://part11-blog-app.fly.dev'
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://part11-blog-app.fly.dev'
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
